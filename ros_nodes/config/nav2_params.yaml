@@ -1,0 +1,25 @@
+amcl:
+  ros_parameters:
+    use_sim_time: False
+
+bt_navigator:
+  ros_parameters:
+    use_sim_time: False
+
+global_costmap:
+  global_costmap:
+    ros_parameters:
+      use_sim_time: False
+      robot_radius: 0.350
+      obstacle_layer:
+        scan:
+          topic: /scan
+
+local_costmap:
+  local_costmap:
+    ros_parameters:
+      use_sim_time: False
+      robot_radius: 0.350
+      obstacle_layer:
+        scan:
+          topic: /scan

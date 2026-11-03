@@ -14,7 +14,7 @@ void setup() {
   initEncoders();
 
   // Start bno
-  if(!bno.begin()) while(1); // Set a better debug mechanism for this later
+  if(!bno.begin()); // Set a better debug mechanism for this later
   bno.setExtCrystalUse(true);
 
   for(int i = 0; i < 10; i++) bno.getEvent(&event);
