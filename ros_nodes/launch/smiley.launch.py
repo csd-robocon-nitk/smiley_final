@@ -7,7 +7,9 @@ from ament_index_python.packages import get_package_share_directory
 
 def generate_launch_description():
 
-    nav2_launch_dir = os.path.join(get_package_share_directory('nav2_bringup'), 'launch')
+    blitz_launch = os.path.join(get_package_share_directory('blitz'), 'launch')
+    ros_nodes_config = os.path.join(get_package_share_directory('ros_nodes'), 'config')
+    nav2_launch = os.path.join(get_package_share_directory('nav2_bringup'), 'launch')
 
     return LaunchDescription([
 
@@ -43,18 +45,18 @@ def generate_launch_description():
             package='slam_toolbox',
             executable='async_slam_toolbox_node',
             name='slam_toolbox',
-            parameters=[os.path.join(get_package_share_directory('ros_nodes'), 'config', 'slam_toolbox_params.yaml')],
+            parameters=[os.path.join(ros_nodes_config, 'slam_toolbox_params.yaml')],
             output='screen'
         ),
 
         # NAV2
         IncludeLaunchDescription(
-            PythonLaunchDescriptionSource(os.path.join(nav2_launch_dir, 'navigation_launch.py')),
+            PythonLaunchDescriptionSource(os.path.join(nav2_launch, 'navigation_launch.py')),
             launch_arguments= {
                 'use_sim_time': 'False',
                 'params_file': os.path.join(get_package_share_directory('ros_nodes'), 'config', 'nav2_params.yaml')
             }.items()
-        )
+        ),
 
         # ________Our packages_________
 
@@ -63,4 +65,7 @@ def generate_launch_description():
         # Frontier Detector Node
 
         # Blitz
+        IncludeLaunchDescription(
+            PythonLaunchDescriptionSource(os.path.join(blitz_launch, 'blitz.launch.py'))
+        )
     ])
